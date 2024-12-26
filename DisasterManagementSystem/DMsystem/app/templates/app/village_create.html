@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  {% extends "base.html" %} {% block content %}
+  <head>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
+      crossorigin="anonymous"
+    />
+  </head>
+  {% load static %}
+
+  <body
+    class="bg-opacity-25 view img-fluid"
+    style="
+      background-image: url('{% static 'app/images/map3.png'%}');
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+    "
+  >
+    <div>
+      <div class="text-center text-white">
+        <h1>Village Create</h1>
+      </div>
+      <div
+        class="card container"
+        style="max-width: 30rem; background-color: rgba(245, 245, 245, 0.164)"
+      >
+        <div class="container-fluid p-4">
+          <form method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+              <label class="form-label text-white fw-semibold" for="name"
+                >Village :</label
+              >
+              <input
+                value="{{village.name}}"
+                name="name"
+                class="form-control"
+                placeholder="St. John Lane"
+              />
+            </div>
+
+            <div class="d-grid gap-2 col-6 mx-auto" style="margin-top: 30px">
+              <input class="btn btn-primary" type="submit" value="Create" />
+            </div>
+            <div class="fw-semibold" style="margin-top: 30px">
+              <p class="text-white">
+                Wanna update details? visit
+                <a
+                  class="text-info"
+                  href="villagelistview"
+                  style="text-decoration: none"
+                  >Updating Corner..</a
+                >
+              </p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+  {% endblock %}
+</html>

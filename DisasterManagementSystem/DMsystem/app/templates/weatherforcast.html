@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+  {% extends "base.html" %} {% block content %} {% load static %}
+  <head>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
+      crossorigin="anonymous"
+    />
+    <script src="../static/html2pdf.bundle.js"></script>
+    <style>
+      .label-container {
+        margin-top: 50px;
+        margin-left: 20px;
+        margin-bottom: 50px;
+      }
+      .weather {
+        margin-top: 0px;
+        margin-left: 20px;
+        margin-bottom: 100px;
+      }
+      #weatherResult {
+        margin-top: 20px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+      }
+      th,
+      td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+      }
+      th {
+        background-color: #f2f2f2;
+      }
+      .watermark {
+        position: absolute;
+        bottom: 10px; 
+        right: 10px;
+        color: rgb(168, 58, 58); 
+        font-size: 18px; 
+        font-weight: bold; 
+        opacity: 0.7; 
+      }
+    </style>
+  </head>
+  <body>
+    <div class="text-end">
+      <button class="btn btn-outline-primary m-4" onclick="downloadPDF()">
+        Download
+      </button>
+    </div>
+    <div id="pdfContent">
+      <h1>HELP+US Disaster Management - Sri Lanka</h1>
+      <div>
+        <h2>Weather Forcast</h2>
+      </div>
+      <div class="label-container">
+        <label for="cityInput">Enter City Name:</label>
+        <input type="text" id="cityInput" />
+        <button onclick="getWeather()">Get Weather Forecast</button>
+      </div>
+      <div id="weatherResult"></div>
+      <div class="watermark">Help Us</div>
+      <div class="weather">
+        <script>
+          function getWeather() {
+            var cityName = document.getElementById("cityInput").value;
+            var apiKey = "48bc3da450ca677d260968f248c681c3";
+            var baseURL = "https://api.openweathermap.org/data/2.5/forecast?q=";
+            var completeURL = baseURL + cityName + "&appid=" + apiKey;
+            fetch(completeURL)
+              .then((response) => response.json()) // Parse the response as JSON
+              .then((data) => {
+                // Display city information as h3 tags
+                var resultDiv = document.getElementById("weatherResult");
+                resultDiv.innerHTML = `<h3>City: ${data.city.name}</h3>
+                                               <h3>Country: ${data.city.country}</h3>`;
+                // Display the weather forecast in Celsius
+                var temperatureCelsius = data.list[0].main.temp - 273.15;
+                resultDiv.innerHTML += `<p>Weather: ${
+                  data.list[0].weather[0].description
+                }</p>
+                    <p>Temperature: ${temperatureCelsius.toFixed(
+                      2
+                    )} °C</p>`;
+                var tableHTML = "<table>";
+                tableHTML +=
+                  "<tr><th>Date</th><th>Min Temp</th><th>Max Temp</th><th>Weather</th><th>Description</th></tr>";
+                // Display additional forecast data in the table for the next 6 intervals
+                for (var i = 1; i <= 10; i++) {
+                  var minTempCelsius = data.list[i].main.temp_min - 273.15;
+                  var maxTempCelsius = data.list[i].main.temp_max - 273.15;
+                  tableHTML += `<tr>
+                                  <td>${data.list[i].dt_txt}</td>
+                                  <td>${minTempCelsius.toFixed(
+                                    2
+                                  )} °C</td>
+                                  <td>${maxTempCelsius.toFixed(
+                                    2
+                                  )} °C</td>
+                                  <td>${
+                                    data.list[i].weather[0].main
+                                  }</td>
+                                  <td>${
+                                    data.list[i].weather[0]
+                                      .description
+                                  }</td>
+                                </tr>`;
+                }
+
+                tableHTML += "</table>";
+                // Append the table to the resultDiv
+                resultDiv.innerHTML += tableHTML;
+              })
+              .catch((error) =>
+                console.error("Error fetching weather data:", error)
+              );
+          }
+        </script>
+        <script>
+          function downloadPDF() {
+            var element = document.getElementById("pdfContent");
+            html2pdf(element, {
+              margin: 10,
+              filename: "weather_forecast.pdf",
+              image: { type: "jpeg", quality: 0.98 },
+              html2canvas: { scale: 2 },
+              jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
+            });
+          }
+        </script>
+      </div>
+    </div>
+  </body>
+  {% endblock %}
+</html>

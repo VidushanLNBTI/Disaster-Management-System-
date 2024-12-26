@@ -1,0 +1,230 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+<head>
+    <style>
+    .welcome-text {
+        width: 200px;
+        height: 160px;
+        flex-shrink: 0;
+        position: absolute;
+        top:40%;
+        left: 20%;
+        transform: translate(-25%, -25%);
+        font-size: 40px;
+        color: white;
+    }
+    .form-container {
+        position: absolute;
+        top: 70%;
+        right: 23%;
+        transform: translateY(-50%);
+        background-color: rgba(255, 255, 255, 0);
+        padding: 20px;
+    }
+     .input-field{
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        padding: 0 10px 10px 10px;
+    }
+    .inputclass{
+        color: var(--dl-color-gray-black);
+        cursor: auto;
+        padding: 0.5rem 1rem;
+        border-color: var(--dl-color-gray-black);
+        border-width: 1px;
+        border-radius: 4px;
+        background-color: var(--dl-color-gray-white);
+        flex: 0 0 auto;
+        width: 337px;
+        height: auto;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        margin-bottom: 12px;
+    }
+    #id_password1{
+        color: var(--dl-color-gray-black);
+        cursor: auto;
+        padding: 0.5rem 1rem;
+        border-color: var(--dl-color-gray-black);
+        border-width: 1px;
+        border-radius: 4px;
+        background-color: var(--dl-color-gray-white);
+        flex: 0 0 auto;
+        width: 337px;
+        height: auto;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        margin-bottom: 12px;
+    }
+    #id_password2{
+        color: var(--dl-color-gray-black);
+        cursor: auto;
+        padding: 0.5rem 1rem;
+        border-color: var(--dl-color-gray-black);
+        border-width: 1px;
+        border-radius: 4px;
+        background-color: var(--dl-color-gray-white);
+        flex: 0 0 auto;
+        width: 337px;
+        height: auto;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        margin-bottom: 12px;
+    }
+    .form2-container {
+        position: absolute;
+        top: 0;
+        right: 0;
+        background-color: rgba(255, 255, 255, 0); 
+        padding: 20px;
+        width: 50%; 
+        height: 100%; 
+        margin-right: 160px;
+    }
+    .wrapper{
+        position: relative;
+        width: 100%;
+        height: 100%; 
+    }
+    .signup4-text18 {
+        top: 111px;
+        left: 355px;
+        color: rgba(255, 255, 255, 1);
+        width: 200px;
+        height: auto;
+        position: absolute;
+        font-size: 40px;
+        font-style: Bold;
+        text-align: left;
+        font-family: Inter;
+        font-weight: 700;
+        line-height: normal;
+        font-stretch: normal;
+        text-decoration: none;
+    }
+    .signup4-text10 {
+        color: #dc3545(226, 32, 48, 1);
+        height: auto;
+        text-align: left;
+        line-height: 20px;
+    }
+    #id_username{
+        color: var(--dl-color-gray-black);
+        cursor: auto;
+        padding: 0.5rem 1rem;
+        border-color: var(--dl-color-gray-black);
+        border-width: 1px;
+        border-radius: 4px;
+        background-color: var(--dl-color-gray-white);
+        flex: 0 0 auto;
+        width: 337px;
+        height: auto;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        margin-bottom: 12px;
+    }
+    #id_password{
+        color: var(--dl-color-gray-black);
+        cursor: auto;
+        padding: 0.5rem 1rem;
+        border-color: var(--dl-color-gray-black);
+        border-width: 1px;
+        border-radius: 4px;
+        background-color: var(--dl-color-gray-white);
+        flex: 0 0 auto;
+        width: 337px;
+        height: auto;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        margin-bottom: 12px;
+    }
+    #messages{
+        font-size: 14px; color: #dc3545; background-color: rgba(255, 255, 255, 0.455);  width: 360px;
+    }
+    </style>
+</head>
+
+<div class="wrapper" style="margin-bottom: 100px;">
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md">
+                    <img src="{% static 'app/images/logiin background.png'%}" alt="backg" width="auto" height="850" class="rounded mx-auto d-block">
+                    <span class="signup4-text18" style="margin-left: -10rem;">
+                        <span >Welcome to the HELP+US</span>
+                      </span>
+                    <div style="margin-top:0%; width:1200px;">
+                        <div class="form2-container">
+                            <form method="post" action="{% url 'login' %}" id="form2" style="float: right; margin-right: 0.3rem;">
+                                <div class="col-md-6 right text-danger">
+                                   <p style="margin-top: 50%; margin-left: 20%; font-size:xx-large;">HELP+US</p>
+                                   <p style="margin-left: 20%;  font-size:x-large; margin-bottom: 25%;">Let's Get Started</p>
+                               </div>
+                               <div>
+                                {% if form.errors %}
+                                <p
+                                    style="margin-left: 3%; font-size: 14px; color: #dc3545;; background-color: rgba(255, 255, 255, 0.455);">Your
+                                    username and password didn't match. Please try again.</p>
+                                {% endif %}
+
+                                {% if next %}
+                                {% if user.is_authenticated %}
+                                <p
+                                style="margin-left: 10%;margin-top:-50px; color: #dc3545; font-size: 12px;">Your account doesn't
+                                    have access to this page. To proceed,
+                                    please login with an account that has access.</p>   
+                                {% else %}
+                                <p
+                                    style="margin-top: 10%; margin-left: 10%; color: #dc3545;">Please login to see this
+                                    page.</p>
+                                {% endif %}
+                                {% endif %}
+                                {% for message in messages %}
+                                    <p id="messages">{{message}}</p>
+                                {% endfor %}
+                            </div>
+                               {% csrf_token %}
+                               <table style="margin-top: 100px; position: inherit;">
+                                   <tr class="input-field">
+                                       <td class="signup4-text10">{{ form.username.label_tag }}</td>
+                                       <td>{{ form.username }}</td>
+                                   </tr>
+                                   <tr class="input-field">
+                                       <td class="signup4-text10">{{ form.password.label_tag }}</td>
+                                       <td>{{form.password}}</td>
+                                   </tr>
+                               </table>
+                               {# Assumes you set up the password_reset view in your URLconf #}
+                               <p><a href="{% url 'password_reset' %}" class="text-danger" style="text-decoration: none; margin-left: 3%;">Forgot password?</a></p>
+                          
+                               <div>
+                                   <input class="btn btn-danger" style="  
+                                   color: var(--dl-color-gray-white);
+                                   width: 360px;
+                                   height: 60px;
+                                   border-color: rgb(226, 32, 48);
+                                   border-radius: 10px;
+                                   margin-bottom: var(--dl-space-space-oneandhalfunits);
+                                   background-color: rgb(226, 32, 48);
+                                   font-weight: 600px;
+                                   color:aliceblue;
+                                   margin-bottom: 12px;" type="submit" value="Sign In">
+                               </div>
+                               <input type="hidden" name="next" value="{{ next }}">
+                               
+                               <p class="text-secondary-emphasis" style="margin-left: 70px;">Don't have an account?<a href="{% url 'register' %}" class="text-danger" style="text-decoration: none;">Sign Up</a></p>
+                            </form>
+                        </div>
+                    </div>
+                </div>  
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

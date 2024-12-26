@@ -1,0 +1,301 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Help+Us</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.79.0/dist/L.Control.Locate.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.79.0/dist/L.Control.Locate.min.js" charset="utf-8"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+    
+<!-- Social Media icons -->
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <style>
+         body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+        }
+        footer {
+            padding: 3px;
+            background-color:#212529;
+            color: white;
+            height:250px;
+            letter-spacing: 4px;
+            margin-top: auto;
+        }
+        .social-links{
+            margin-top: 12px;
+            display: flex;
+            justify-content: left;
+            margin-bottom: 1.4rem;
+        }
+        .social-links a{
+            border: 2px solid #fff;
+            color: #fff;
+            display: block;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            text-decoration: none;
+            margin: 0 0.3rem;
+            transition: all 0.5s ease;
+        }
+
+        .social-links a:hover{
+            background: #a70909;
+            color: var(--exDark);
+        }
+
+
+        .footer span{
+            margin-top: 1rem;
+            display: block;
+            font-family: var(--OpenSans);
+            letter-spacing: 2px;
+        }
+
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg sticky-top bg-dark" style="font-size: 18px;">
+        <div class="m-3">
+            <div class="d-flex">
+                <div class="container-fluid" >
+                    <a class="navbar-brand" href="{% url 'home' %}">
+                        <img src="{% static 'app/images/helpus.png'%}" alt="Logo" width="auto" height="60"
+                            class="d-inline-block align-text-top">
+                    </a>
+                </div>
+
+                <div class="d-flex justify-content-evenly">
+                    <div class="m-3" style="word-wrap: break-word; white-space: nowrap;">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-item" style="font-family:inter" aria-current="page" href="{% url 'home' %}">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a id="map-link" class="nav-item" style="font-family: inter" aria-current="page" href="{% url 'map' %}">Map</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-item" href="{% url 'guidelines'%}" style="font-family:inter">Guidelines</a>
+                            </li>
+                            <li class="nav-item dropdown" style="font-family:inter">
+                                <a class="nav-item" href="#" role="button" data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+                                    Weather Forcast</a>
+                                <ul class="dropdown-menu " style="height:150px; right:-25px; border-color: #dc354600; background-color: #ffffff7c;">
+                                    <li class="nav-item dropend">
+                                        <a class="nav-link dropdown-toggle"  href="{% url 'weatherforcast'%}" role="button"
+                                            data-bs-toggle="dropdown" aria-expanded="false" style="margin-top: -5px;">
+                                            Weather Forcast
+                                        </a>
+                                    </li>
+                                    <li class="nav-item dropend">
+                                        <a class="nav-link dropdown-toggle"  href="#" role="button"
+                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                            Weather Reports
+                                        </a>
+                                    </li>
+                                </ul>
+                                
+                            </li>
+                            <li class="nav-item dropdown" style="font-family:inter">
+                                <a class="nav-item" href="#" role="button" data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+                                    Events
+                                </a>
+                                <ul class="dropdown-menu " style="height:285px; right:-25px; border-color: #dc354600; background-color: #ffffff7c;">
+                                    <li class="nav-item dropend">
+                                        <a class="nav-link dropdown-toggle" href="#" role="button"
+                                            data-bs-toggle="dropdown" aria-expanded="false" style="margin-top: -5px;">
+                                            Camp
+                                        </a>
+                                        <ul class="dropdown-menu" style="border-color: #dc354600; background-color: #ffffff7c;">
+                                            <li><a class="dropdown-item " href="{% url 'create_camp' %}">Camp
+                                                    Register</a></li>
+                                            <li><a class="dropdown-item" href="{% url 'camp_index'  %}">Camp Details</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="nav-item dropend">
+                                        <a class="nav-link dropdown-toggle" href="#" role="button"
+                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                            Refugee
+                                        </a>
+                                        <ul class="dropdown-menu" style="border-color: #dc354600; background-color: #ffffff7c;">
+                                            <li><a class="dropdown-item " href="{% url 'create_refugee' %}">Refugee
+                                                    Register</a></li>
+                                            <li><a class="dropdown-item" href="{% url 'refugee_index'  %}">Refugee
+                                                    Details</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="nav-item dropend">
+                                        <a class="nav-link dropdown-toggle" href="#" role="button"
+                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                            Disaster
+                                        </a>
+                                        <ul class="dropdown-menu" style="border-color: #dc354600; background-color: #ffffff7c;">
+                                            <li><a class="dropdown-item" href="{% url 'create_disaster' %}">Disaster
+                                                    Register</a></li>
+                                            <li><a class="dropdown-item" href="{% url 'disaster_index'  %}">Disaster
+                                                    Details</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="nav-item dropend">
+                                        <a class="nav-link dropdown-toggle" href="#" role="button"
+                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                            Location
+                                        </a>
+                                        <ul class="dropdown-menu" style="border-color: #dc354600; background-color: #ffffff7c;">
+                                            <li><a class="dropdown-item" href="{% url 'create_location' %}">Location
+                                                    Register</a></li>
+                                            <li><a class="dropdown-item" href="{% url 'location_index'  %}">Location
+                                                    Details</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="nav-item dropend">
+                                        <a class="nav-link dropdown-toggle" href="#" role="button"
+                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                            Guidelines
+                                        </a>
+                                        <ul class="dropdown-menu" style="border-color: #dc354600; background-color: #ffffff7c;">
+                                            <li><a class="dropdown-item" href="{% url 'create_guidelines' %}">Guidelines
+                                                    Register</a></li>
+                                            <li><a class="dropdown-item" href="{% url 'guidelines_index'  %}">Guidelines
+                                                    Details</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-donate">
+                                <button class="btn btn-danger">
+                                    <a class="link-light fw-semibold" href="../donate" style="text-decoration: none;">Donate</a>
+                                </button>
+                            </li>            
+                            <div class="m-2" style="width: 33rem; padding-left: 80px;">
+                                <span class="d-flex justify-content-end">
+                                    <form class="d-flex " role="search">
+                                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                                        <button class="btn btn-outline-danger" type="submit">Search</button>
+                                    </form>
+                                </span>
+                            </div>
+
+                            <li class="nav-item dropdown" style="font-family:inter">
+                                <a class="nav-item" href="#" role="button" data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user">
+                                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                        <circle cx="12" cy="7" r="4"></circle>
+                                    </svg>
+                                    {{user.username}}</a>
+                                <ul class="dropdown-menu " style="height:200px; right:-25px; border-color: #dc354600; background-color: #ffffff7c;">
+                                    <li class="nav-item dropend">
+                                        <a class="nav-link text-white" href="{% url 'edit_profile'%}" style="margin-top:17px; background-color: #010101;">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                                                Edit Profile
+                                        </a>
+                                    </li>
+                                    <li class="nav-item dropend">
+                                        <a class="nav-link text-white" href="{% url 'upload_water_level'%}" style="margin-top:17px; background-color: #010101;">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-upload"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                                                Upload File
+                                        </a>
+                                    </li>
+                                    <li class="nav-item dropend">
+                                        {% if user.is_authenticated %}
+                                        <a class="text-white" href="{% url 'profile'%}" style="text-decoration: none;">
+                                        </a></a><a class="nav-link text-white" href="{% url 'logout'%}" style="margin-top:15px; background-color: #000000;">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-log-out"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>Logout</a>
+                                        {% else %}
+                                        <a class="nav-link text-white" href="{% url 'login'%}" style="margin-top:15px; background-color: #000000;">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-log-in"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path><polyline points="10 17 15 12 10 7"></polyline><line x1="15" y1="12" x2="3" y2="12"></line></svg>Login</a>
+                                        {% endif %}
+                                    </li>
+                                    
+                                </ul>
+                                
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    {% block content%}
+    {% endblock%}
+
+    <footer style="font-size: 14.5px;">
+        <section style="text-align: left; margin-left:12px; width: max-content; float:left;">
+            <div>
+                <div><b>Follow Us On</b></div>
+                <div class = "social-links">
+                    <a href = "#"><i class='bx bxl-facebook'></i></a>
+                    <a href = "#"><i class='bx bxl-twitter'></i></a>
+                    <a href = "#"><i class='bx bxl-instagram'></i></a>
+                    <a href = "#"><i class='bx bxl-youtube'></i></a>
+                </div>
+            </div>
+            <div>
+                <span><b>Quick Links</b></span>
+            </div>
+            <div style="width: fit-content; float: left; margin-top: 8px;">
+                <div style="display: inline-block; margin-right: 60px; text-align: justify;">
+                    <a href="#" style="color: white; text-decoration: none;">Home</a><br>
+                    <a href="#" style="color: white; text-decoration: none;">About us</a><br>
+                    <a href="#" style="color: white; text-decoration: none;">News</a><br>
+                    <a href="#" style="color: white; text-decoration: none;">Disaster</a><br>
+                    <a href="#" style="color: white; text-decoration: none;">Contact us</a>
+                </div>
+                <div style="display: inline-block; margin-right: 60px; text-align: justify;">
+                    <a href="#" style="color: white; text-decoration: none;">Donate</a><br>
+                    <a href="#" style="color: white; text-decoration: none;">Search</a><br>
+                    <a href="#" style="color: white; text-decoration: none;">Notifications</a><br>
+                    <a href="#" style="color: white; text-decoration: none;">Sign in</a><br>
+                    <a href="#" style="color: white; text-decoration: none;">Profile</a>
+                </div>
+                <div style="display: inline-block; margin-right: 60px; text-align: justify;">
+                    <a href="#" style="color: white; text-decoration: none;">Support</a><br>
+                    <a href="#" style="color: white; text-decoration: none;">Privacy policy</a><br>
+                    <a href="#" style="color: white; text-decoration: none;">FAQs</a><br>
+                    <a href="#" style="color: white; text-decoration: none;">Contact</a><br>
+                    <a href="#" style="color: white; text-decoration: none;">Events</a>
+                </div>
+             </div>
+        
+            </section>
+            <section style="text-align: right; margin-right: 12px; margin-top: 76px;">
+                <h1>info@helpus.lk</h1>
+                <hr>
+                <h6>Maharagama, Sri Lanka</h6>
+                <h6>+9477XXXXXX/+9476XXXXXX</h6>
+                <span style="font-size: 14px;">Copyright © 2023 HELP+US. All Rights Reserved.</span>
+            </section>
+    </footer>
+</body>
+</html>

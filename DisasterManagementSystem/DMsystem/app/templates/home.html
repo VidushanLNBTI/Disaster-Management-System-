@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+
+<head>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+  <style>
+    .card-overlay {
+      transform: translate(90%, -150%);
+      background: rgba(255, 255, 255, 0);
+      color: aliceblue;
+      padding: 20px;
+      border-radius: 10px;
+    }
+    .home3-rectangle11434 {
+    top: 2704px;
+    left: 33px;
+    width: 1533px;
+    height: 713px;
+    position: absolute;
+    }
+    .home3-text28 {
+    top: 2734px;
+    left: 53px;
+    color: rgba(0, 0, 0, 1);
+    width: 216px;
+    height: auto;
+    position: absolute;
+    font-size: 60px;
+    font-style: Bold;
+    text-align: left;
+    font-family: Jura;
+    font-weight: 700;
+    line-height: 36px;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+  .home3-text64 {
+    top: 166px;
+    left: 418px;
+    color: rgba(255, 255, 255, 1);
+    width: 187px;
+    height: auto;
+    position: absolute;
+    font-size: 30px;
+    font-style: Regular;
+    text-align: left;
+    font-family: Judson;
+    font-weight: 400;
+    line-height: 32px;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+  .background {
+    background-color: rgba(172, 173, 188, 0.2);
+    padding: 30px;
+    margin: 50px;
+    border-radius: 20px;
+  }
+
+  .container {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .item {
+    background-color: rgba(223, 214, 214, 1);
+    padding: 30px;
+    width: 600px;
+    height: 550px;
+    flex-grow: 1;
+    flex-basis: calc(50% - 5px); /* Adjust the basis to control item width and consider the gap */
+    max-width: calc(50% - 5px); /* Ensure a maximum width for responsive design */
+    margin-bottom: 10px;
+  }
+
+
+  .item h1 {
+    font-size: 20px;
+  }
+
+  .item img {
+    width: 100%;
+    height: 100%;
+  }
+
+  .item p {
+    font-size: 20px;
+  }
+
+  .container2 {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px; /* space between items */
+  }
+
+  .item2 {
+    flex-grow: 1;
+    flex-basis: calc(50% - 5px); 
+    max-width: calc(50% - 5px); 
+    margin-bottom: 10px; 
+  }
+
+  </style>
+</head>
+
+<body>
+
+
+  <div>
+    <div class="background-container">
+      <img class="background-img rounded mx-auto d-block" src="{% static 'app/images/home1.png'%}" style="display: flex; justify-content: space-between; align-items: center; background-size: cover;" alt="homep"
+        width="auto" height="400">
+    </div>
+    <div class="container" style="display: block; padding-left: 100px;">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="card mb-3 text-center" style="margin-top: 4%; border: none;">
+            <div class="row g-0">
+              <div class="col-md-4">
+                <img src="{% static 'app/images/homev1.png'%}" class="img-fluid rounded-start" alt="homeicon1">
+              </div>
+              <div class="col-md-8" style="margin-top: 6%;">
+                <div class="card-body">
+                  <h5 class="card-title">Refugee Management</h5>
+                  <a href="#">Visit Page</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card mb-3 text-center" style="border: none;">
+            <div class="row g-0">
+              <div class="col-md-4">
+                <img src="{% static 'app/images/homev3.png'%}" class="img-fluid rounded-start" alt="homeicon3">
+              </div>
+              <div class="col-md-8" style="margin-top: 6%;">
+                <div class="card-body">
+                  <h5 class="card-title">Disaster Status Management</h5>
+                  <a href="#">Visit Page</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card mb-3 text-center" style="margin-top: 4%; border: none;">
+            <div class="row g-0">
+              <div class="col-md-4">
+                <img src="{% static 'app/images/homev2.png'%}" class="img-fluid rounded-start" alt="homeicon2">
+              </div>
+              <div class="col-md-8" style="margin-top: 6%;">
+                <div class="card-body">
+                  <h5 class="card-title">Camp Management</h5>
+                  <a href="#">Visit Page</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card mb-3 text-center" style="border: none;">
+            <div class="row g-0">
+              <div class="col-md-4">
+                <img src="{% static 'app/images/homev4.png'%}" class="img-fluid rounded-start" alt="homeicon4">
+              </div>
+              <div class="col-md-8" style="margin-top: 6%;">
+                <div class="card-body">
+                  <h5 class="card-title">Guidelines Management</h5>
+                  <a href="#">Visit Page</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="background-img rounded mx-auto d-block p30 d-flex justify-content-between align-items-center" style="background-image: url(static/app/images/about.png); color: white; padding: 30px; background-size: cover;" >
+      <div style="flex: fill; margin-left: 600px; margin-right: 100px; margin-top: 60px; margin-bottom: 70px;" width="auto" height="400">
+        <h2 style="padding: 20px;">About us</h2>
+        <p class="fs-5">
+          HELP+US is a natural disaster management system. Our mission is to provide immediate assistance and support during crises. Our team is dedicated to ensuring the safety and well-being of communities affected by natural disasters. With our advanced technology and expertise, we are able to respond quickly and efficiently in times of need.
+        </p>
+      </div>
+    </div>
+
+    <div class="background rounded mx-auto d-block" style="padding: 80px;">
+      <h2>NEWS</h2>
+      <section class="container" style="justify-content: space-between; gap: 10px;">
+        <section class="item">
+          <div>
+            <h1>March 16, 2023</h1>
+            <img src="{% static 'app/images/about.png'%}" alt="">
+            <p>A man walks through floodwaters downstream from a levee break along the Pajaro River in Monterey County, California. Heavy rain from an atmospheric river caused the levee to fail. March 12, 2023. (Image credit: California Department of Water Resources)</p>
+          </div>
+        </section>
+        <section class="item">
+          <div>
+            <h1>WRN Helping Ease the Impact on Children after Disasters</h1>
+            <img src="{% static 'app/images/about.png'%}" alt="">
+            <p>Project Bear Hugs, started by Hannah in 2013, has helped bring comfort to children and families across the United States after they have suffered tragic loss from natural disasters.</p>
+          </div>
+        </section>
+      </section>
+      <input type="submit" style="width: 147px; height: 29px; font-family: judson; margin-left:1200px; font-family: 'Judson'; font-style: normal; font-weight: 400; font-size: 30px; line-height: 20px; color: #000000; letter-spacing: -0.006em; padding: 3px;" value="More news">
+    </div>
+
+    <div class="container2" style="background-color: rgba(217, 217, 217, 1); padding: 40px;">
+      <div class="item2" style="padding: 50px;">
+        <h1 style="font-family: 'Judson';">Get in touch today</h1>
+        <p style="font-family: 'Judson'; font-size: 25px;">Have a question or need more information? Fill out the form 
+          below and we'll get back to you as soon as possible. We're 
+          here to help with all your natural disaster management needs.</p>
+      </div>
+      <div class="item2">
+        <form method="POST"  action="{% url 'sendemail' %}">
+          {% csrf_token %}
+          <h4 style="font-family: 'Judson';">Name</h4>
+          <input type="text" name="name" style=" font-family: 'Judson'; width: 575px; height: 29px; background: rgba(115, 115, 115, 0.6); border-radius: 14px;">
+          <h4 style="font-family: 'Judson';">Email</h4>
+          <input type="email" name="email" style=" font-family: 'Judson'; width: 575px; height: 29px; background: rgba(115, 115, 115, 0.6); border-radius: 14px;">
+          <h4 style="font-family: 'Judson';">Message</h4>
+          <input type="text" name="message" style=" font-family: 'Judson'; width: 575px; height: 162px; background: rgba(115, 115, 115, 0.6); border-radius: 14px;"><br><br>
+          <input type="submit" value="Send" style="width:160px; height:46px; background:#E15053; border-radius: 20px; font-family: 'Judson'; font-size: 20px; margin-left: 480px;"><br><br>
+          {% if messages %}
+              {% for message in messages %}
+                  <div class="modal" tabindex="-1" role="dialog" style="display: block;">
+                      <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                              <div class="modal-body">
+                                  {{ message }}
+                              </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" onclick="closeModal()">Close</button>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              {% endfor %}
+          {% endif %}
+          <script>
+              function closeModal() {
+                  var modal = document.querySelector('.modal');
+                  modal.style.display = 'none';
+              }
+          </script>
+        </form>
+      </div>
+    </div>
+    </div>
+  {% endblock %} 
+</body>
+</html>

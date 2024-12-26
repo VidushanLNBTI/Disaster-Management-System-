@@ -1,0 +1,172 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+<head>
+    <style>
+     .input-field{
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        padding: 0 10px 10px 10px;
+    }
+    .inputclass{
+        color: var(--dl-color-gray-black);
+        cursor: auto;
+        padding: 0.5rem 1rem;
+        border-color: var(--dl-color-gray-black);
+        border-width: 1px;
+        border-radius: 4px;
+        background-color: var(--dl-color-gray-white);
+        flex: 0 0 auto;
+        width: 350px;
+        height: auto;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        margin-bottom: 12px;
+    }
+    .form2-container {
+        position: absolute;
+        top: 0;
+        right: 0;
+        background-color: rgba(255, 255, 255, 0); 
+        padding: 20px;
+        width: 90%; 
+        height: 100%; 
+        margin-top: 10px;
+        margin-left: 12px;
+        margin-right: 250px;
+    }
+    .wrapper{
+        position: relative;
+        width: 100%;
+        height: 100%; 
+    }
+    .signup4-text18 {
+        top: 111px;
+        left: 200px;
+        color: rgba(255, 255, 255, 1);
+        width: 200px;
+        height: auto;
+        position: absolute;
+        font-size: 40px;
+        font-style: Bold;
+        text-align: left;
+        font-family: "Inter";
+        font-weight: 700;
+        line-height: normal;
+        font-stretch: normal;
+        text-decoration: none;
+    }
+    .signup4-text10 {
+        color: rgba(226, 32, 48, 1);
+        height: auto;
+        text-align: left;
+        line-height: 20px;
+    }
+    .errorlist{
+        font-size: 12px; 
+        color: red; 
+        background-color: rgba(253, 253, 253, 0.358);
+        font-weight: 600;
+        max-width: 400px; 
+        margin-top: 0px;
+    }
+    .close-btn {
+        color: red;
+        float: right;
+        font-size: 20px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+    .close-btn:hover {
+        color: darkred;
+    }
+    </style>
+</head>
+<body>
+<div class="wrapper" style="margin-bottom: 100px;">
+    <div class="container mt-5" >
+        <div class="row">
+            <div class="col-md" >
+                    <img id="backgroundImage" src="{% static 'app/images/logiin background.png'%}"  alt="backg" width="auto" height="850" class="rounded mx-auto d-block">
+                    <span class="signup4-text18">
+                        <span>Welcome to the HELP+US</span>
+                    </span>  
+                    <div style="margin-top:0%; width:1200px;">
+                        <div class="form2-container">
+                            <form method="post" action="{% url 'register' %}" id="form2" style="float: right;">
+                                <div class="col-md-6 right text-danger">
+                                   <p style="margin-top: 10%; margin-left: 20%; font-size:xx-large;">HELP+US</p>
+                                   <p style="margin-left: 20%;  font-size:x-large; margin-bottom: 15%;">Let's Get Started</p>
+                               </div>
+                               {{ form.field.errors }}
+                               {{ form.non_field_errors }}
+                               {% if form.non_field_errors %}
+                                    <div class="errorlist">
+                                        {% for error in form.non_field_errors %}
+                                            <p>
+                                                {{ error }}
+                                                <span class="close-btn" onclick="this.parentElement.style.display='none'">&times;</span>
+                                            </p>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                                {% for field in form %}
+                                    {% if field.errors %}
+                                        <div class="errorlist">
+                                            {% for error in field.errors %}
+                                                <p>
+                                                    {{ error }}
+                                                    <span class="close-btn" onclick="this.parentElement.style.display='none'">&times;</span>
+                                                </p>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                               {% csrf_token %}
+                               <table>
+                                   <tr class="input-field">
+                                       <td class="signup4-text10">{{form.username.label}}</td>
+                                       <td>{{form.username}}</td>
+                                   </tr>
+                                   <tr class="input-field">
+                                       <td class="signup4-text10">{{form.email.label}}</td>
+                                       <td>{{form.email}}</td>
+                                   </tr>
+                                   <tr class="input-field">
+                                    <td class="signup4-text10">{{form.password1.label}}</td>
+                                    <td>
+                                        {{form.password1}}
+                                    </td>
+                                    </tr>
+                                   <tr class="input-field">
+                                       <td class="signup4-text10">{{form.password2.label}}</td>
+                                       <td>{{form.password2}}</td>
+                                   </tr>
+                               </table>
+                               <div>
+                                   <input class="btn btn-danger" style="  
+                                   color: var(--dl-color-gray-white);
+                                   width: 360px;
+                                   height: 60px;
+                                   border-color: rgb(226, 32, 48);
+                                   border-radius: 10px;
+                                   margin-bottom: var(--dl-space-space-oneandhalfunits);
+                                   background-color: rgb(226, 32, 48);
+                                   font-weight: 600;
+                                   color:aliceblue;
+                                   margin-bottom: 12px;" type="submit" value="Sign Up">
+                               </div>
+                               <input type="hidden" name="next" value="{{ next }}">
+                               <p class="text-secondary-emphasis" style="margin-left: 70px;">Already have an account?<a href="{% url 'login' %}" class="text-danger" style="text-decoration: none;">Sign In</a></p>
+                            </form>
+                        </div>
+                    </div>
+                </div>  
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+{% endblock %}

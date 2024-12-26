@@ -1,0 +1,6 @@
+﻿Station Name,Street Address,City,Access Days Time,EV Level1 EVSE Num,EV Level2 EVSE Num,EV DC Fast Count,EV Other Info,New Georeferenced Column
+Rathnapura,Kalu Ganga,Rathnapura,24 hours daily,NONE,NONE,NONE,NONE,POINT (80.40 6.68)
+Ellagawa,,,24 hours daily,NONE,NONE,NONE,NONE,POINT (80.22 6.73)
+Magura,,,24 hours daily,NONE,NONE,NONE,NONE,POINT (80.24 6.51)
+Millakanda,,,24 hours daily,NONE,NONE,NONE,NONE,POINT (80.16 6.63)
+Putupaula,,,24 hours daily,NONE,NONE,NONE,NONE,POINT (80.06 6.61)

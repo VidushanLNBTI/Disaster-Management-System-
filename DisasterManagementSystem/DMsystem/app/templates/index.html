@@ -1,0 +1,40 @@
+{% extends "base.html" %} {% block content %}
+<div style="margin-top: 0px; position: fixed; width: 100%; height: auto">
+  {{map|safe}}
+</div>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    // Get the "Map" link element
+    var mapLink = document.getElementById("map-link");
+    // Attach a click event listener to the link
+    mapLink.addEventListener("click", function (event) {
+      event.preventDefault(); // Prevent the default link behavior
+      // Call the function to ask for location permission
+      askForLocationPermission();
+    });
+  });
+
+  function askForLocationPermission() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        function (position) {
+          // User has granted permission, handle the location data
+          console.log("Location permission granted:", position.coords);
+          // Redirect to the same page with user's location as parameters
+          window.location.href =
+            "{% url 'map' %}?user_latitude=" +
+            position.coords.latitude +
+            "&user_longitude=" +
+            position.coords.longitude;
+        },
+        function (error) {
+          // User has denied or there was an error obtaining location
+          console.error("Error getting location:", error.message);
+        }
+      );
+    } else {
+      console.error("Geolocation is not supported by this browser.");
+    }
+  }
+</script>
+{% endblock %}
